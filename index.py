@@ -8,4 +8,5 @@ while True:
     if opção == 2:
         tabuada_aleatoria()
     if opção == 3:
+        print("Programa finalizado. Volte sempre!")
         break

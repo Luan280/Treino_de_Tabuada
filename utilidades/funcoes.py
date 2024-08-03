@@ -1,105 +1,122 @@
 from random import randint
 from time import sleep
+from termcolor import colored
 
 
 def linha(tam=40):
     return "-" * tam
 
 
-def cabeçalho(texto):
+def cabecalho(texto):
     print(linha())
     print(texto.center(40))
     print(linha())
 
 
 def menu(lista):
-    cabeçalho("MENU PRINCIPAL")
+    cabecalho(colored("   MENU PRINCIPAL", 'blue'))
     c = 0
     for valor in lista:
         c += 1
-        print(f"{c} - {valor}")
+        print(colored(f"{c} - {valor}", "yellow"))
     print(linha())
     try:
-        resposta = int(input("Digite uma das opções (1, 2, 3): "))
+        resposta = int(input("DIGITE UMA DAS OPÇÔES (1, 2, 3): "))
     except KeyboardInterrupt:
-        print(f"\n{linha(76)}")
-        print("ERRO: Já que nenhum valor foi informado, estamos encerrando o sistema...... ")
-        print(linha(76))
-        sleep(2)
+        print(colored(f"\n{linha(76)}", "red"))
+        print(colored("ERRO: JÁ QUE NENHUM VALOR FOI INFORMADO, ESTAMOS ENCERRANDO O SISTEMA...", "red"))
+        print(colored(f"{linha(76)}", "red"))
+        sleep(1.3)
         return 3
-
     except ValueError:
-        print(linha())
-        print('\n1ERRO: Digite Somente as opções "1, 2, 3"')
-        print(linha())
-        sleep(2)
+        print(colored(f"\n{linha()}", "red"))
+        print(colored('ERRO: DIGITE SOMENTE AS OPÇÕES: "1, 2, 3"', "red"))
+        print(colored(f"{linha()}", "red"))
+        sleep(1.3)
     else:
         return resposta
 
 
 def tabuada_fixa():
-    cabeçalho("TABUADAS FIXAS [999 PARA SAIR]")
+    cabecalho(colored("TABUADAS COM NÚMEROS FIXOS [999 PARA SAIR]", 'blue'))
     while True:
         parada = False
         try:
-            valor = int(input("Digite o número da tabuada fixa: "))
+            valor = int(input("DIGITE QUAL TABUADA VOCÊ QUER: "))
         except KeyboardInterrupt:
-            print(f"\n{linha(76)}")
-            print("ERRO: Já que nenhum valor foi informado, estamos encerrando o sistema......")
-            print(linha(76))
-            sleep(1.5)
+            print(colored(f"\n{linha(76)}", "red"))
+            print(colored("ERRO: JÁ QUE NENHUM VALOR FOI INFORMADO, ESTAMOS ENCERRANDO O SISTEMA...", "red"))
+            print(colored(f"{linha(76)}", "red"))
+            sleep(1.3)
             break
         except ValueError:
-            print(f"\n{linha()}")
-            print("ERRO: Digite somente NÚMEROS!")
-            print(linha())
+            print(colored(f"\n{linha()}", "red"))
+            print(colored("ERRO: DIGITE SOMENTE NÚMEROS INTEIROS!", "red"))
+            print(colored(f"{linha()}", "red"))
         else:
             while True:
                 print(linha())
                 n1 = randint(1, 10)
                 print(f"{valor} x {n1} = ", end="")
-                resposta = int(input(""))
-                if resposta == 999:
-                    parada = True
-                    return parada
-
-                if resposta == valor * n1:
-                    print("Você ACERTOU!")
-                    sleep(1.5)
+                try:
+                    resposta = int(input(""))
+                except ValueError:
+                    print(colored(f"\n{linha()}", "red"))
+                    print(colored("ERRO: DIGITE SOMENTE NÚMEROS INTEIROS!", "red"))
+                    print(colored(f"{linha()}", "red"))
+                except KeyboardInterrupt:
+                    print(colored(f"\n{linha(76)}", "red"))
+                    print(colored("ERRO: JÁ QUE NENHUM VALOR FOI INFORMADO, ESTAMOS ENCERRANDO O SISTEMA...", "red"))
+                    print(colored(f"{linha(76)}", "red"))
+                    sleep(1.3)
+                    break
                 else:
-                    print("Você ERROU!")
-                    print(f"A resposta correta é {valor * n1}.")
-                sleep(1.5)
+                    if resposta == 999:
+                        print(colored("VOLTANDO PARA O MENU PRINCIPAL....", 'red'))
+                        sleep(1.3)
+                        parada = True
+                        return parada
+
+                    if resposta == valor * n1:
+                        print(colored("VOCÊ ACERTOU!", "green"))
+                        sleep(1.3)
+                    else:
+                        print(colored("VOCÊ ERROU!", "red"))
+                        print(f"A RESPOSTA CORRETA É {valor * n1}.")
+                    sleep(1.3)
         if parada:
             break
 
 
 def tabuada_aleatoria():
-    global resposta
-    cabeçalho("TABUADAS ALEATÓRIAS [999 PARA SAIR]")
+    cabecalho(colored("TABUADA COM NÚMEROS ALEATÓRIOS [999 PARA SAIR]", 'blue'))
     while True:
-        try:
-            resposta = int(input(""))
-        except KeyboardInterrupt:
-            print(f"\n{linha(76)}")
-            print("ERRO: Já que nenhum valor foi informado, estamos encerrando o sistema......")
-            print(linha(76))
-            break
-        except ValueError:
-            print(f"\n{linha()}")
-            print("ERRO: Digite somente números!")
-            print(linha())
         n1 = randint(1, 10)
         n2 = randint(1, 10)
         print(f"{n1} x {n2} = ", end="")
-        if resposta == 999:
+        try:
+            resposta = int(input(""))
+        except KeyboardInterrupt:
+            print(colored(f"\n{linha(76)}", "red"))
+            print(colored("ERRO: JÁ QUE NENHUM VALOR FOI INFORMADO, ESTAMOS ENCERRANDO O SISTEMA...", "red"))
+            print(colored(f"{linha(76)}", "red"))
+            sleep(1.3)
             break
-        if resposta == n1 * n2:
-            print("Você ACERTOU!")
-            print(linha())
-            sleep(1.5)
+        except ValueError:
+            print(colored(f"\n{linha()}", "red"))
+            print(colored("ERRO: DIGITE SOMENTE NÚMEROS INTEIROS!", "red"))
+            print(colored(f"{linha()}", "red"))
         else:
-            print("Você ERROU!")
-            print(f"A resposta correta é {n1*n2}.")
-            print(linha())
-            sleep(1.5)
+            if resposta == 999:
+                print(colored("VOLTANDO PARA O MENU PRINCIPAL....", 'red'))
+                sleep(1.3)
+                break
+            if resposta == n1 * n2:
+                print(colored("VOCÊ ACERTOU!", "green"))
+                print(linha())
+                sleep(1.3)
+            else:
+                print(colored("VOCÊ ERROU!", 'red'))
+                print(f"A RESPOSTA CORRETA É {n1*n2}.")
+                print(linha())
+                sleep(1.3)

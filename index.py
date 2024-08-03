@@ -1,12 +1,14 @@
 from utilidades.funcoes import *
 
 while True:
-    opção = menu(['Tabuada fixa', 'Tabuada aleatoria', 'Encerrar o programa'])
-    
-    if opção == 1:
+    opcao = menu([colored('TREINAR TABUADA COM NÚMEROS FIXOS', 'yellow'),
+                  colored('TREINAR TABUADA COM NÚMEROS ALEATÓRIOS', 'yellow'),
+                  colored('ENCERRAR O PROGRAMA', 'yellow')])
+    if opcao == 1:
         tabuada_fixa()
-    if opção == 2:
+    if opcao == 2:
         tabuada_aleatoria()
-    if opção == 3:
-        print("Programa finalizado. Volte sempre!")
+    if opcao == 3:
+        print(linha())
+        print(colored("PROGRAMA FINALIZADO. VOLTE SEMPRE!", "yellow"))
         break

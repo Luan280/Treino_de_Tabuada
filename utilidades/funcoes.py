@@ -27,14 +27,14 @@ def menu(lista):
         print(colored("ERRO: JÁ QUE NENHUM VALOR FOI INFORMADO, ESTAMOS ENCERRANDO O SISTEMA...", "red"))
         print(colored(f"{linha(76)}", "red"))
         sleep(1.3)
-        return 4
+        return 50
     except ValueError:
         print(colored(f"\n{linha()}", "red"))
         print(colored('ERRO: DIGITE SOMENTE AS OPÇÕES: "1, 2, 3, 4"', "red"))
         print(colored(f"{linha()}", "red"))
         sleep(1.3)
     else:
-        if resposta != 1 or 2 or 3 or 4:
+        if resposta == 1 or resposta != 2 or resposta != 3 or resposta != 4 or resposta != 5:
             print(colored(f"\n{linha()}", "red"))
             print(colored('ERRO: DIGITE SOMENTE AS OPÇÕES: "1, 2, 3, 4"', "red"))
             print(colored(f"{linha()}", "red"))
@@ -138,7 +138,6 @@ def tabuada_aleatoria():
 
 def soma_simples():
     while True:
-        quebra = False
         try:
             cabecalho(colored("SOMA COM NÚMEROS ALEATÓRIOS [999 PARA SAIR]", 'blue'))
             limite = int(input("Digite o valor máximo da soma: "))
@@ -189,3 +188,59 @@ def soma_simples():
                         sleep(1.3)
         if quebra:
             break
+        quebra = False
+
+def subtracao_simples():
+    while True:
+        try:
+            cabecalho(colored("SOMA COM NÚMEROS ALEATÓRIOS [999 PARA SAIR]", 'blue'))
+            limite = int(input("Digite o valor máximo da subtração: "))
+            print(linha())
+        except ValueError:
+            print(colored(f"\n{linha()}", "red"))
+            print(colored("ERRO: DIGITE SOMENTE NÚMEROS INTEIROS!", "red"))
+            print(colored(f"{linha()}", "red"))
+        except KeyboardInterrupt:
+            print(colored(f"\n{linha(76)}", "red"))
+            print(colored("ERRO: JÁ QUE NENHUM VALOR FOI INFORMADO, ESTAMOS ENCERRANDO O SISTEMA...", "red"))
+            print(colored(f"{linha(76)}", "red"))
+            sleep(1.3)
+            quebra = True
+            break
+        else:
+            while True:
+                n1 = randint(0,int(limite))
+                n2 = randint(0, int(limite))
+                total = n1 - n2
+                print(f" {n1}\n {n2} -\n------")
+                try:
+                    resposta = int(input(""))
+                except ValueError:
+                    print(colored(f"\n{linha()}", "red"))
+                    print(colored("ERRO: DIGITE SOMENTE NÚMEROS INTEIROS!", "red"))
+                    print(colored(f"{linha()}", "red"))
+                except KeyboardInterrupt:
+                    print(colored(f"\n{linha(76)}", "red"))
+                    print(colored("ERRO: JÁ QUE NENHUM VALOR FOI INFORMADO, ESTAMOS ENCERRANDO O SISTEMA...", "red"))
+                    print(colored(f"{linha(76)}", "red"))
+                    sleep(1.3)
+                    quebra = True
+                    break
+                else:
+                    if resposta == 999:
+                        print(colored("VOLTANDO PARA O MENU PRINCIPAL....", 'red'))
+                        sleep(1.3)
+                        quebra = True
+                        break
+                    elif resposta == total:
+                        print(colored("VOCÊ ACERTOU!", "green"))
+                        print(linha())
+                        sleep(1.3)
+                    else:
+                        print(colored("VOCÊ ERROU!", 'red'))
+                        print(f"A RESPOSTA CORRETA É {total}.")
+                        print(linha())
+                        sleep(1.3)
+        if quebra:
+            break
+        quebra = False

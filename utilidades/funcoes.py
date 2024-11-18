@@ -3,8 +3,8 @@ from time import sleep
 from termcolor import colored
 
 
-def linha(tam=40):
-    return "-" * tam
+def linha(tam=30):
+    return ("-" * tam) * 2
 
 
 def keyboard_interrupt():
@@ -20,52 +20,62 @@ def value_error():
     print(colored(f"{linha()}", "red"))
 
 def you_lose(total):
-    print(colored("VOCÊ ERROU!", "red"))
-    print(f"A RESPOSTA CORRETA É {total}.")
+    text = "VOCÊ ERROU!"
+    text2 = f"A RESPOSTA CORRETA É {total}."
+    print(colored(f"{linha(len(text2))}", "red"))
+    print(colored(f"{text:^43}", "red"))
+    print(f"{text2:^43}")
+    print(colored(f"{linha(len(text2))}", "red"))
     sleep(1.3)
 
 
 def you_win():
-    print(colored(linha(20)))
-    print(colored("VOCÊ ACERTOU!", "green"))
-    print(colored(linha(20)))
+    text = "VOCÊ ACERTOU!"
+    print(colored(f"{linha(len(text))}", "green"))
+    print(colored(f"{text:^26}", "green"))
+    print(colored(f"{linha(len(text))}","green"))
+    sleep(1.3)
+
+def back_menu():
+    text = "VOLTANDO PARA O MENU PRINCIPAL...."
+    print(colored(f"{linha(len(text))}","yellow"))
+    print(colored(f"{text:^68}", 'yellow'))
+    print(colored(f"{linha(len(text))}","yellow"))
     sleep(1.3)
 
 
+
 def cabecalho(texto):
-    print(linha())
-    print(texto.center(40))
-    print(linha())
+    texto_size = len(texto) * 2
+    print(colored(f"{linha(len(texto))}","blue"))
+    print(colored(f"{texto:^{texto_size}}", "blue"))
+    print(colored(f"{linha(len(texto))}","blue"))
 
 
 def menu(lista):
-    cabecalho(colored("   MENU PRINCIPAL", 'blue'))
+    cabecalho("MENU PRINCIPAL")
     c = 0
     for valor in lista:
         c += 1
         print(colored(f"{c} - {valor}", "yellow"))
     print(linha())
     try:
-        resposta = int(input("DIGITE UMA DAS OPÇÔES (1, 2, 3, 4): "))
+        resposta = int(input("DIGITE UMA DAS OPÇÔES (1, 2, 3, 4, 5, 6): "))
+        print(linha())
     except KeyboardInterrupt:
         keyboard_interrupt()
-        return 5
+        return 6
     except ValueError:
         print(colored(f"\n{linha()}", "red"))
-        print(colored('ERRO: DIGITE SOMENTE AS OPÇÕES: "1, 2, 3, 4"', "red"))
+        print(colored('ERRO: DIGITE SOMENTE AS OPÇÕES: "1, 2, 3, 4, 5, 6"', "red"))
         print(colored(f"{linha()}", "red"))
         sleep(1.3)
     else:
-        if resposta == 1 or resposta == 2 or resposta == 3 or resposta == 4 or resposta == 5 or resposta == 6:
-            return resposta
-        else:
-            print(colored(f"\n{linha()}", "red"))
-            print(colored('ERRO: DIGITE SOMENTE AS OPÇÕES: "1, 2, 3, 4"', "red"))
-            print(colored(f"{linha()}", "red"))
+        return resposta
+
 
 
 def tabuada_fixa():
-    cabecalho(colored("TABUADAS COM NÚMEROS FIXOS [999 PARA SAIR]", 'blue'))
     while True:
         parada = False
         try:
@@ -77,7 +87,7 @@ def tabuada_fixa():
             value_error()
         else:
             while True:
-                print(linha())
+                cabecalho("TABUADAS COM NÚMEROS FIXOS [999 PARA SAIR]")
                 n1 = randint(1, 10)
                 total = valor * n1
                 print(f"{valor} x {n1} = ", end="")
@@ -90,8 +100,7 @@ def tabuada_fixa():
                     break
                 else:
                     if resposta == 999:
-                        print(colored("VOLTANDO PARA O MENU PRINCIPAL....", 'red'))
-                        sleep(1.3)
+                        back_menu()
                         parada = True
                         return parada
 
@@ -107,7 +116,7 @@ def tabuada_aleatoria():
     while True:
         quebra = False
         try:
-            cabecalho(colored("TABUADA COM NÚMEROS ALEATÓRIOS [999 PARA SAIR]", 'blue'))
+            cabecalho("TABUADA COM NÚMEROS ALEATÓRIOS [999 PARA SAIR]")
             limite = int(input("Digite o valor máximo da tabuada: "))
         except ValueError:
             value_error()
@@ -130,8 +139,7 @@ def tabuada_aleatoria():
                     value_error()
                 else:
                     if resposta == 999:
-                        print(colored("VOLTANDO PARA O MENU PRINCIPAL....", 'red'))
-                        sleep(1.3)
+                        back_menu()
                         quebra = True
                         break
                     elif resposta == total:
@@ -146,7 +154,7 @@ def soma_simples():
     while True:
         quebra = False
         try:
-            cabecalho(colored("SOMA COM NÚMEROS ALEATÓRIOS [999 PARA SAIR]", 'blue'))
+            cabecalho("SOMA COM NÚMEROS ALEATÓRIOS [999 PARA SAIR]")
             limite = int(input("Digite o valor máximo da soma: "))
             print(linha())
         except ValueError:
@@ -170,8 +178,7 @@ def soma_simples():
                     break
                 else:
                     if resposta == 999:
-                        print(colored("VOLTANDO PARA O MENU PRINCIPAL....", 'red'))
-                        sleep(1.3)
+                        back_menu()
                         quebra = True
                         break
                     elif resposta == total:
@@ -186,7 +193,7 @@ def subtracao_simples():
     while True:
         quebra = False
         try:
-            cabecalho(colored("SOMA COM NÚMEROS ALEATÓRIOS [999 PARA SAIR]", 'blue'))
+            cabecalho("SOMA COM NÚMEROS ALEATÓRIOS [999 PARA SAIR]")
             limite = int(input("Digite o valor máximo da subtração: "))
             print(linha())
         except ValueError:
@@ -210,8 +217,7 @@ def subtracao_simples():
                     break
                 else:
                     if resposta == 999:
-                        print(colored("VOLTANDO PARA O MENU PRINCIPAL....", 'red'))
-                        sleep(1.3)
+                        back_menu()
                         quebra = True
                         break
                     elif resposta == total:
@@ -223,13 +229,14 @@ def subtracao_simples():
 
 
 def multiplicacao():
-    cabecalho(colored("MULTIPLICAÇÃO COM NÚMEROS ALEATÓRIOS [999 PARA SAIR]", 'blue'))
+    cabecalho("MULTIPLICAÇÃO COM NÚMEROS ALEATÓRIOS [999 PARA SAIR]")
     try:
-        limite = int(input("Digite o valor máximo da tabuada: "))
+        limite = int(input("Digite o valor máximo da multiplicação: "))
     except ValueError:
-        print("Digite somente números inteiros.")
+        value_error()
     except KeyboardInterrupt:
-        print(colored(f"\n{linha(76)}", "red"))
-        print(colored("ERRO: JÁ QUE NENHUM VALOR FOI INFORMADO, ESTAMOS ENCERRANDO O SISTEMA...", "red"))
-        print(colored(f"{linha(76)}", "red"))
-        sleep(1.3)
+        keyboard_interrupt()
+    else:
+        n1 = randint(1, int(limite))
+        n2 = randint(1, int(limite))
+        print(f"{n1}\n{n2} *")

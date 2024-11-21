@@ -15,9 +15,10 @@ def keyboard_interrupt():
 
 
 def value_error():
-    print(colored(f"\n{linha()}", "red"))
-    print(colored("ERRO: DIGITE SOMENTE NÚMEROS INTEIROS.", "red"))
-    print(colored(f"{linha()}", "red"))
+    text = "ERRO: DIGITE SOMENTE NÚMEROS INTEIROS."
+    print(colored(f"{linha(len(text))}", "red"))
+    print(colored(f"{text:^70}", "red"))
+    print(colored(f"{linha(len(text))}", "red"))
 
 def you_lose(total):
     text = "VOCÊ ERROU!"
@@ -61,15 +62,11 @@ def menu(lista):
     print(linha())
     try:
         resposta = int(input("DIGITE UMA DAS OPÇÔES (1, 2, 3, 4, 5, 6): "))
-        print(linha())
     except KeyboardInterrupt:
         keyboard_interrupt()
         return 6
     except ValueError:
-        print(colored(f"\n{linha()}", "red"))
-        print(colored('ERRO: DIGITE SOMENTE AS OPÇÕES: "1, 2, 3, 4, 5, 6"', "red"))
-        print(colored(f"{linha()}", "red"))
-        sleep(1.3)
+        value_error()
     else:
         return resposta
 
@@ -117,7 +114,7 @@ def tabuada_aleatoria():
         quebra = False
         try:
             cabecalho("TABUADA COM NÚMEROS ALEATÓRIOS [999 PARA SAIR]")
-            limite = int(input("Digite o valor máximo da tabuada: "))
+            limite = int(input("DIGITE O VALOR MÁXIMO DA TABUADA: "))
         except ValueError:
             value_error()
         except KeyboardInterrupt:
@@ -155,7 +152,7 @@ def soma_simples():
         quebra = False
         try:
             cabecalho("SOMA COM NÚMEROS ALEATÓRIOS [999 PARA SAIR]")
-            limite = int(input("Digite o valor máximo da soma: "))
+            limite = int(input("DIGITE O VALOR MÁXIMO DA SOMA: "))
             print(linha())
         except ValueError:
             value_error()
@@ -194,7 +191,7 @@ def subtracao_simples():
         quebra = False
         try:
             cabecalho("SOMA COM NÚMEROS ALEATÓRIOS [999 PARA SAIR]")
-            limite = int(input("Digite o valor máximo da subtração: "))
+            limite = int(input("DIGITE O VALOR MÁXIMO DA SUBTRAÇÃO: "))
             print(linha())
         except ValueError:
             value_error()
@@ -229,14 +226,31 @@ def subtracao_simples():
 
 
 def multiplicacao():
-    cabecalho("MULTIPLICAÇÃO COM NÚMEROS ALEATÓRIOS [999 PARA SAIR]")
+    cabecalho("MULTIPLICAÇÃO COM NÚMEROS ALEATÓRIOS[999 PARA SAIR]")
     try:
-        limite = int(input("Digite o valor máximo da multiplicação: "))
+        limite = int(input("DIGITE O VALOR MÁXIMO DA MULTIPLICAÇÃO: "))
     except ValueError:
         value_error()
     except KeyboardInterrupt:
         keyboard_interrupt()
     else:
-        n1 = randint(1, int(limite))
-        n2 = randint(1, int(limite))
-        print(f"{n1}\n{n2} *")
+        while True:
+            n1 = randint(1, int(limite))
+            n2 = randint(1, int(limite))
+            total = n1 * n2
+            print(f"{n1}\n{n2} *\n------")
+            try:
+                resposta = int(input(""))
+            except ValueError:
+                value_error()
+            except KeyboardInterrupt:
+                keyboard_interrupt()
+                break
+            else:
+                if resposta == 999:
+                    back_menu()
+                    break
+                elif resposta == total:
+                    you_win()
+                else:
+                    you_lose(total)

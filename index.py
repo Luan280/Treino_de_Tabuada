@@ -1,12 +1,16 @@
+from unicodedata import digit
+
 from utilidades.funcoes import *
 
 while True:
-    opcao = menu([colored('TREINAR TABUADA COM NÚMEROS FIXOS', 'yellow'),
-    colored('TREINAR TABUADA COM NÚMEROS ALEATÓRIOS', 'yellow'),
-    colored('TREINO DE SOMA COM NÚMEROS ALETÓRIOS', 'yellow'),
-    colored('TREINO DE SUBTRAÇÃO COM NÚMEROS ALETÓRIOS', 'yellow'),
-    colored("TREINO DE MULTIPLICAÇÃO COM NÚMEROS ALEATÓRIOS", "yellow"),
-    colored('ENCERRAR O PROGRAMA', 'yellow')])
+    opcao = menu([
+    'TREINAR TABUADA COM NÚMEROS FIXOS',
+    'TREINAR TABUADA COM NÚMEROS ALEATÓRIOS',
+    "TREINO DE SOMA COM NÚMEROS ALEATÓRIOS",
+    'TREINO DE SUBTRAÇÃO COM NÚMEROS ALETÓRIOS',
+    "TREINO DE MULTIPLICAÇÃO COM NÚMEROS ALEATÓRIOS",
+    'ENCERRAR O PROGRAMA'])
+
     if opcao == 1:
         tabuada_fixa()
     elif opcao == 2:
@@ -22,6 +26,7 @@ while True:
         print(colored("PROGRAMA FINALIZADO. VOLTE SEMPRE!", "yellow"))
         break
     else:
-        print(colored(f"{linha()}", "red"))
-        print(colored('ERRO: DIGITE SOMENTE AS OPÇÕES: "1, 2, 3, 4"', "red"))
-        print(colored(f"{linha()}", "red"))
+        text = 'ERRO: DIGITE SOMENTE AS OPÇÕES: "1, 2, 3, 4, 5, 6"'
+        print(colored(f"{linha(len(text))}", "red"))
+        print(colored(f"{text:^100}", "red"))
+        print(colored(f"{linha(len(text))}", "red"))

@@ -2,12 +2,20 @@ from random import randint
 from time import sleep
 from termcolor import colored
 
+from testes import sorted_number
+
 
 def linha(tam=30):
+    """Função que retorna uma linha"""
     return ("-" * tam) * 2
 
+def random_numbers(limit_account):
+    number_1 = randint(0, int(limit_account))
+    number_2 = randint(0, int(limit_account))
+    return number_1, number_2
 
 def keyboard_interrupt():
+    """Função que exibi uma mensagem de erro quando entra em um except de 'KeyboardIterrupt'"""
     print(colored(f"\n{linha(76)}", "red"))
     print(colored("ERRO: JÁ QUE NENHUM VALOR FOI INFORMADO, ESTAMOS ENCERRANDO O SISTEMA...", "red"))
     print(colored(f"{linha(76)}", "red"))
@@ -15,12 +23,14 @@ def keyboard_interrupt():
 
 
 def value_error():
+    """Função que exibi uma mensagem de erro quando entra em um except de 'ValueError'"""
     text = "ERRO: DIGITE SOMENTE NÚMEROS INTEIROS."
     print(colored(f"{linha(len(text))}", "red"))
     print(colored(f"{text:^70}", "red"))
     print(colored(f"{linha(len(text))}", "red"))
 
 def you_lose(total):
+    """Função que exibi uma mensagem mostrando que você errou a resposta e mostra o resultado correto"""
     text = "VOCÊ ERROU!"
     text2 = f"A RESPOSTA CORRETA É {total}."
     print(colored(f"{linha(len(text2))}", "red"))
@@ -31,6 +41,7 @@ def you_lose(total):
 
 
 def you_win():
+    """Funçãp que mostra uma mensagem mostrando que você acertou a questão"""
     text = "VOCÊ ACERTOU!"
     print(colored(f"{linha(len(text))}", "green"))
     print(colored(f"{text:^26}", "green"))
@@ -38,6 +49,7 @@ def you_win():
     sleep(1.3)
 
 def back_menu():
+    """Função que mostra uma mensagem"""
     text = "VOLTANDO PARA O MENU PRINCIPAL...."
     print(colored(f"{linha(len(text))}","yellow"))
     print(colored(f"{text:^68}", 'yellow'))
@@ -47,6 +59,7 @@ def back_menu():
 
 
 def cabecalho(texto):
+    """Função que gera uma cabeçalho para todos os sistemas"""
     texto_size = len(texto) * 2
     print(colored(f"{linha(len(texto))}","blue"))
     print(colored(f"{texto:^{texto_size}}", "blue"))
@@ -54,6 +67,7 @@ def cabecalho(texto):
 
 
 def menu(lista):
+    """Função que mostra um menu de opções de sistemas"""
     cabecalho("MENU PRINCIPAL")
     c = 0
     for valor in lista:
@@ -73,10 +87,11 @@ def menu(lista):
 
 
 def tabuada_fixa():
+    """Função que gera uma tabuada com números que o usuário escolher"""
     while True:
-        parada = False
+        break_loop = False
         try:
-            valor = int(input("DIGITE QUAL TABUADA VOCÊ QUER: "))
+            multiplication_table = int(input("DIGITE QUAL TABUADA VOCÊ QUER: "))
         except KeyboardInterrupt:
             keyboard_interrupt()
             break
@@ -85,36 +100,37 @@ def tabuada_fixa():
         else:
             while True:
                 cabecalho("TABUADAS COM NÚMEROS FIXOS [999 PARA SAIR]")
-                n1 = randint(1, 10)
-                total = valor * n1
-                print(f"{valor} x {n1} = ", end="")
+                number_1, *_ = random_numbers(multiplication_table)
+                total = multiplication_table * number_1
+                print(f"{multiplication_table} x {number_1} = ", end="")
                 try:
-                    resposta = int(input(""))
+                    user_response = int(input(""))
                 except ValueError:
                     value_error()
                 except KeyboardInterrupt:
                     keyboard_interrupt()
                     break
                 else:
-                    if resposta == 999:
+                    if user_response == 999:
                         back_menu()
-                        parada = True
-                        return parada
+                        break_loop = True
+                        return break_loop
 
-                    if resposta == total:
+                    if user_response == total:
                         you_win()
                     else:
                         you_lose(total)
-        if parada:
+        if break_loop:
             break
 
 
 def tabuada_aleatoria():
+    """Função que gera uma tabuada com números aleatórios"""
     while True:
-        quebra = False
+        break_loop = False
         try:
             cabecalho("TABUADA COM NÚMEROS ALEATÓRIOS [999 PARA SAIR]")
-            limite = int(input("DIGITE O VALOR MÁXIMO DA TABUADA: "))
+            limit_account = int(input("DIGITE O VALOR MÁXIMO DA TABUADA: "))
         except ValueError:
             value_error()
         except KeyboardInterrupt:
@@ -122,37 +138,37 @@ def tabuada_aleatoria():
             break
         else:
             while True:
-                n1 = randint(1, int(limite))
-                n2 = randint(1, int(limite))
-                total = n1 * n2
-                print(f"{n1} x {n2} = ", end="")
+                number_1, number_2 = random_numbers(limit_account)
+                total = number_1 * number_2
+                print(f"{number_1} x {number_2} = ", end="")
                 try:
-                    resposta = int(input(""))
+                    user_response = int(input(""))
                 except KeyboardInterrupt:
                     keyboard_interrupt()
-                    quebra = True
+                    break_loop = True
                     break
                 except ValueError:
                     value_error()
                 else:
-                    if resposta == 999:
+                    if user_response == 999:
                         back_menu()
-                        quebra = True
+                        break_loop = True
                         break
-                    elif resposta == total:
+                    elif user_response == total:
                         you_win()
                     else:
                         you_lose(total)
-        if quebra:
+        if break_loop:
             break
 
 
-def soma_simples():
+def soma_aleatoria():
+    """Função que mostra uma conta de soma aleatória"""
     while True:
-        quebra = False
+        break_loop = False
         try:
             cabecalho("SOMA COM NÚMEROS ALEATÓRIOS [999 PARA SAIR]")
-            limite = int(input("DIGITE O VALOR MÁXIMO DA SOMA: "))
+            limit_account = int(input("DIGITE O VALOR MÁXIMO DA SOMA: "))
             print(linha())
         except ValueError:
             value_error()
@@ -161,37 +177,37 @@ def soma_simples():
             break
         else:
             while True:
-                n1 = randint(0, int(limite))
-                n2 = randint(0, int(limite))
-                total = n1 + n2
-                print(f" {n1}\n {n2} +\n------")
+                number_1, number_2 = sorted_number(limit_account)
+                total = number_1 + number_2
+                print(f" {number_1}\n {number_2} +\n------")
                 try:
-                    resposta = int(input(""))
+                    user_response = int(input(""))
                 except ValueError:
                     value_error()
                 except KeyboardInterrupt:
                     keyboard_interrupt()
-                    quebra = True
+                    break_loop = True
                     break
                 else:
-                    if resposta == 999:
+                    if user_response == 999:
                         back_menu()
-                        quebra = True
+                        break_loop = True
                         break
-                    elif resposta == total:
+                    elif user_response == total:
                         you_win()
                     else:
                         you_lose(total)
-        if quebra:
+        if break_loop:
             break
 
 
-def subtracao_simples():
+def subtracao_aleatoria():
+    """Função que mostra uma conta de subtração com números aleatórios"""
     while True:
-        quebra = False
+        break_loop = False
         try:
-            cabecalho("SOMA COM NÚMEROS ALEATÓRIOS [999 PARA SAIR]")
-            limite = int(input("DIGITE O VALOR MÁXIMO DA SUBTRAÇÃO: "))
+            cabecalho("SUBTRAÇÃO COM NÚMEROS ALEATÓRIOS [999 PARA SAIR]")
+            limit_account = int(input("DIGITE O VALOR MÁXIMO DA SUBTRAÇÃO: "))
             print(linha())
         except ValueError:
             value_error()
@@ -200,57 +216,56 @@ def subtracao_simples():
             break
         else:
             while True:
-                n1 = randint(0, int(limite))
-                n2 = randint(0, int(limite))
-                total = n1 - n2
-                print(f" {n1}\n {n2} -\n------")
+                number_1, number_2 = random_numbers(limit_account)
+                total = number_1 - number_2
+                print(f" {number_1}\n {number_2} -\n------")
                 try:
-                    resposta = int(input(""))
+                    user_response = int(input(""))
                 except ValueError:
                     value_error()
                 except KeyboardInterrupt:
                     keyboard_interrupt()
-                    quebra = True
+                    break_loop = True
                     break
                 else:
-                    if resposta == 999:
+                    if user_response == 999:
                         back_menu()
-                        quebra = True
+                        break_loop = True
                         break
-                    elif resposta == total:
+                    elif user_response == total:
                         you_win()
                     else:
                         you_lose(total)
-        if quebra:
+        if break_loop:
             break
 
 
 def multiplicacao():
+    """Função que mostra uma conta de multiplicação"""
     cabecalho("MULTIPLICAÇÃO COM NÚMEROS ALEATÓRIOS[999 PARA SAIR]")
     try:
-        limite = int(input("DIGITE O VALOR MÁXIMO DA MULTIPLICAÇÃO: "))
+        limit_account = int(input("DIGITE O VALOR MÁXIMO DA MULTIPLICAÇÃO: "))
     except ValueError:
         value_error()
     except KeyboardInterrupt:
         keyboard_interrupt()
     else:
         while True:
-            n1 = randint(1, int(limite))
-            n2 = randint(1, int(limite))
-            total = n1 * n2
-            print(f"{n1}\n{n2} *\n------")
+            number_1, number_2 = random_numbers(limit_account)
+            total = number_1 * number_2
+            print(f"{number_1}\n{number_2} *\n------")
             try:
-                resposta = int(input(""))
+                user_response = int(input(""))
             except ValueError:
                 value_error()
             except KeyboardInterrupt:
                 keyboard_interrupt()
                 break
             else:
-                if resposta == 999:
+                if user_response == 999:
                     back_menu()
                     break
-                elif resposta == total:
+                elif user_response == total:
                     you_win()
                 else:
                     you_lose(total)

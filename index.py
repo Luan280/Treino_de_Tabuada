@@ -1,5 +1,3 @@
-from unicodedata import digit
-
 from utilidades.funcoes import *
 
 while True:
@@ -16,9 +14,9 @@ while True:
     elif opcao == 2:
         tabuada_aleatoria()
     elif opcao == 3:
-        soma_simples()
+        soma_aleatoria()
     elif opcao == 4:
-        subtracao_simples()
+        subtracao_aleatoria()
     elif opcao == 5:
         multiplicacao()
     elif opcao == 6:
